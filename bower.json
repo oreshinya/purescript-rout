@@ -1,5 +1,23 @@
 {
   "name": "purescript-rout",
+  "version": "1.0.0",
+  "license": "MIT",
+  "homepage": "https://github.com/oreshinya/purescript-rout",
+  "authors": [
+    "Shinya Takahashi <s.takahashi313@gmail.com>"
+  ],
+  "description": "purescript url parser for client side routing",
+  "keywords": [
+    "purescript",
+    "router"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/oreshinya/purescript-rout.git"
+  },
+  "moduleType": [
+    "node"
+  ],
   "ignore": [
     "**/.*",
     "node_modules",
