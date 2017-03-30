@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "name": "purescript-rout",
+  "scripts": {
+    "clean": "rm -rf output",
+    "compile": "psc src/Rout.purs test/Main.purs 'bower_components/purescript-*/src/**/*.purs'",
+    "test": "node -e \"require('./output/Test.Main').main()\""
+  },
+  "devDependencies": {
+    "purescript": "0.10.7"
+  }
+}
