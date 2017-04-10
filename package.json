@@ -3,13 +3,15 @@
   "name": "purescript-rout",
   "scripts": {
     "clean": "rm -rf output",
-    "bower": "bower install",
-    "compile": "pulp build",
-    "test": "pulp test"
+    "bower:install": "bower install",
+    "pulp:build": "pulp build",
+    "pulp:version": "pulp version",
+    "pulp:publish": "pulp publish",
+    "pulp:test": "pulp test"
   },
   "devDependencies": {
     "bower": "^1.8.0",
-    "pulp": "^10.0.4",
-    "purescript": "0.10.7"
+    "pulp": "^11.0.0",
+    "purescript": "0.11.3"
   }
 }
