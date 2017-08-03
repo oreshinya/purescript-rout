@@ -14,6 +14,7 @@ data Route
   | NotFound
 
 derive instance routeEq :: Eq Route
+
 route :: String -> Route
 route url = fromMaybe NotFound $ match url $
   Home <$ end
