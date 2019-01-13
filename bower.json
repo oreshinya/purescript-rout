@@ -24,12 +24,11 @@
     "output"
   ],
   "dependencies": {
-    "purescript-maps": "^3.5.2",
-    "purescript-profunctor": "^3.2.0",
-    "purescript-strings": "^3.3.1"
+    "purescript-ordered-collections": "^1.4.0",
+    "purescript-profunctor": "^4.0.0",
+    "purescript-strings": "^4.0.0"
   },
   "devDependencies": {
-    "purescript-psci-support": "^3.0.0",
-    "purescript-assert": "^3.0.0"
+    "purescript-assert": "^4.0.0"
   }
 }

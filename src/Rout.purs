@@ -13,18 +13,19 @@ module Rout
   ) where
 
 import Prelude
-import Data.Array as A
-import Data.Map as M
-import Data.String as S
+
 import Control.Alt (class Alt)
 import Control.MonadPlus (guard)
 import Control.Plus (class Plus)
+import Data.Array as A
 import Data.Foldable (foldr)
 import Data.Int (fromString)
-import Data.List (catMaybes, List(Nil, Cons), fromFoldable, drop)
-import Data.Maybe (Maybe(Just, Nothing), maybe)
-import Data.Profunctor (lmap)
-import Data.Tuple (Tuple(Tuple), fst, snd)
+import Data.List (catMaybes, List(..), fromFoldable, drop)
+import Data.Map as M
+import Data.Maybe (Maybe(..), maybe)
+import Data.Profunctor (lcmap)
+import Data.String as S
+import Data.Tuple (Tuple(..), fst, snd)
 import Global (readFloat, isNaN)
 
 
@@ -158,7 +159,7 @@ routeFromUrl url =
 
 parsePath :: Route -> String -> Route
 parsePath query = drop 1 <<< foldr prependPath query <<< S.split (S.Pattern "/")
-  where prependPath = lmap Path Cons
+  where prependPath = lcmap Path Cons
 
 
 
