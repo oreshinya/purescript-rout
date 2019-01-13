@@ -28,15 +28,11 @@ import Data.String as S
 import Data.Tuple (Tuple(..), fst, snd)
 import Global (readFloat, isNaN)
 
-
-
 data Part = Path String | Query (M.Map String String)
 
 type Route = List Part
 
 newtype Parser a = Parser (Route -> Maybe (Tuple Route a))
-
-
 
 instance parserFunctor :: Functor Parser where
   map f (Parser r2t) = Parser $ \r ->
@@ -62,8 +58,6 @@ instance parserPlus :: Plus Parser where
 instance parserApplicative :: Applicative Parser where
   pure a = Parser \r -> pure $ Tuple r a
 
-
-
 end :: Parser Unit
 end = Parser $ \r ->
   case r of
@@ -71,15 +65,11 @@ end = Parser $ \r ->
     Nil -> Just $ Tuple Nil unit
     _ -> Nothing
 
-
-
 lit :: String -> Parser Unit
 lit part = Parser $ \r ->
   case r of
     Cons (Path p) ps | p == part -> Just $ Tuple ps unit
     _ -> Nothing
-
-
 
 num :: Parser Number
 num = Parser $ \r ->
@@ -92,15 +82,11 @@ num = Parser $ \r ->
         Just $ Tuple ps res
     _ -> Nothing
 
-
-
 int :: Parser Int
 int = Parser $ \r ->
   case r of
     Cons (Path p) ps -> maybe Nothing (Just <<< Tuple ps) $ fromString p
     _ -> Nothing
-
-
 
 bool :: Parser Boolean
 bool = Parser $ \r ->
@@ -109,15 +95,11 @@ bool = Parser $ \r ->
     Cons (Path p) ps | p == "false" -> Just $ Tuple ps false
     _ -> Nothing
 
-
-
 str :: Parser String
 str = Parser $ \r ->
   case r of
     Cons (Path p) ps -> Just $ Tuple ps p
     _ -> Nothing
-
-
 
 param :: String -> Parser String
 param key = Parser $ \r ->
@@ -128,23 +110,17 @@ param key = Parser $ \r ->
         Just s -> Just $ Tuple (Cons (Query <<< M.delete key $ map) ps) s
     _ ->  Nothing
 
-
-
 params :: Parser (M.Map String String)
 params = Parser $ \r ->
   case r of
     Cons (Query map) ps -> Just $ Tuple ps map
     _ -> Nothing
 
-
-
 any :: Parser Unit
 any = Parser $ \r ->
   case r of
     Cons p ps -> Just $ Tuple ps unit
     _ -> Nothing
-
-
 
 routeFromUrl :: String -> Route
 routeFromUrl "/" = Nil
@@ -155,13 +131,9 @@ routeFromUrl url =
       let queryPart = parseQuery <<< S.drop queryPos $ url
       in parsePath (Cons queryPart Nil) <<< S.take queryPos $ url
 
-
-
 parsePath :: Route -> String -> Route
 parsePath query = drop 1 <<< foldr prependPath query <<< S.split (S.Pattern "/")
   where prependPath = lcmap Path Cons
-
-
 
 parseQuery :: String -> Part
 parseQuery s = Query <<< M.fromFoldable <<< catMaybes <<< map part2tuple $ parts
@@ -174,8 +146,6 @@ parseQuery s = Query <<< M.fromFoldable <<< catMaybes <<< map part2tuple $ parts
       let param' = S.split (S.Pattern "=") part
       guard $ A.length param' == 2
       Tuple <$> (A.head param') <*> (param' A.!! 1)
-
-
 
 match :: forall a. String -> Parser a -> Maybe a
 match url (Parser parser) = maybe Nothing (Just <<< snd) result
